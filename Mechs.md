@@ -1,0 +1,3 @@
+- Collecting(3 motors)
+- Shooting(1 motor)
+- Drivetrain(2 motors)
