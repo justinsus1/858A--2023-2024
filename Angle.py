@@ -14,5 +14,5 @@ r = 2 * pi * x * (angle / 360)
 l = l / wheel_size / gear_r * 360
 r = r / wheel_size / gear_r * 360
 
-print(l * 1.33)
-print(r * 1.33)
+print(l * gear_r)
+print(r * gear_r)
