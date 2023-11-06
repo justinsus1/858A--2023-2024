@@ -36,8 +36,8 @@ inertial BrainInertial = inertial();
 /*    Author:       justin_sus1                                               */
 /*    Created:      10/23/2023, 7:48:46 PM                                    */
 /*    Description:  IQ2 project                                               */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
+/*                  -                                                          */
+/*---------------------------------------------------------------------------*/
 #include "vex.h"
 
 using namespace vex;
@@ -181,23 +181,24 @@ void setup() {
 
 void part1() {
     B_R.spin(forward);
-    die(38);
+    die(32);
     // turndeg(-33);
     // die(20);
-    turndeg(91);
-    die(15);
-    turndeg(-128);
-    die(7.5);
-    turndeg(42);
-    die(20);
-    turndeg(85);
-    Drivetrain.drive(forward);
-    wait(2, seconds);
-    Drivetrain.stop();
-    B_R.stop();
-    Drivetrain.drive(reverse);
-    wait(3, seconds);
-    Drivetrain.stop();
+    LeftDriveSmart.spinFor(90, degrees);
+    RightDriveSmart.spinFor(180, degrees);
+    // die(15);
+    // turndeg(-128);
+    // die(7.5);
+    // turndeg(42);
+    // die(20);
+    // turndeg(85);
+    // Drivetrain.drive(forward);
+    // wait(2, seconds);
+    // Drivetrain.stop();
+    // B_R.stop();
+    // Drivetrain.drive(reverse);
+    // wait(3, seconds);
+    // Drivetrain.stop();
 }
 
 void part2() {
