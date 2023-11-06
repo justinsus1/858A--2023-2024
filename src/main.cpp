@@ -104,24 +104,24 @@ double calculate(double target, double start) {
 int control() {
     while(true) {
         if (!ifTaskPaused) {
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("in task");
-        leftVel = calculate(Target, LeftDriveSmart.position(degrees));
-        rightVel = calculate(Target, RightDriveSmart.position(degrees));
-        LeftDriveSmart.setVelocity(leftVel, percent);
-        RightDriveSmart.setVelocity(rightVel, percent);
-        LeftDriveSmart.spin(forward);
-        RightDriveSmart.spin(forward);
-        wait(10, msec);
-        printf("%lf\n", leftVel);
-        printf("%lf\n", LeftDriveSmart.position(degrees));
-        printf("%lf\n", Target);
+            Brain.Screen.clearScreen();
+            Brain.Screen.setCursor(1, 1);
+            // Brain.Screen.print("in task");
+            leftVel = calculate(Target, LeftDriveSmart.position(degrees) / 360 * 2 * 200);
+            rightVel = calculate(Target, RightDriveSmart.position(degrees) / 360 * 2 * 200);
+            LeftDriveSmart.setVelocity(leftVel, percent);
+            RightDriveSmart.setVelocity(rightVel, percent);
+            LeftDriveSmart.spin(forward);
+            RightDriveSmart.spin(forward);
+            wait(10, msec);
+            Brain.Screen.print("%lf\n", leftVel);
+            printf("%lf\n", LeftDriveSmart.position(degrees));
+            printf("%lf\n", Target);
         } else {
-        LeftDriveSmart.stop();
-        RightDriveSmart.stop();
-        LeftDriveSmart.setVelocity(75, percent);
-        RightDriveSmart.setVelocity(75, percent);
+            LeftDriveSmart.stop();
+            RightDriveSmart.stop();
+            LeftDriveSmart.setVelocity(75, percent);
+            RightDriveSmart.setVelocity(75, percent);
         }
     }
 }
@@ -134,12 +134,12 @@ void die(double diveTarget) {
     Target = diveTarget * 2;
     controlLoop.resume();
     wait(100, msec);
-    while (!ifTaskPaused) { 
+    while (!ifTaskPaused) {
         wait(5, msec);
         if (fabs(leftVel) <= 0.75 && fabs(rightVel) <= 0.75) {
-        LeftDriveSmart.stop();
-        RightDriveSmart.stop();
-        ifTaskPaused = true;
+            LeftDriveSmart.stop();
+            RightDriveSmart.stop();
+            ifTaskPaused = true;
         }
     }
     controlLoop.suspend();
@@ -182,8 +182,6 @@ void setup() {
 void part1() {
     B_R.spin(forward);
     die(32);
-    // turndeg(-33);
-    // die(20);
     LeftDriveSmart.spinFor(90, degrees);
     RightDriveSmart.spinFor(180, degrees);
     // die(15);
