@@ -189,9 +189,11 @@ void part1() {
     RightDriveSmart.spinFor(-600, degrees);
 
     die(5);
+    LeftDriveSmart.spinFor(-180, degrees);
+    wait(2, seconds);
 
-    LeftDriveSmart.setVelocity(5, percent);
-    LeftDriveSmart.spinFor(400, degrees, false);
+    LeftDriveSmart.setVelocity(35, percent);
+    LeftDriveSmart.spinFor(600, degrees, false);
     RightDriveSmart.spinFor(1200, degrees);
     // die(15);
     // turndeg(-128);
