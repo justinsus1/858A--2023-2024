@@ -163,7 +163,7 @@ void turndeg(float ang) {
 
 void setup() {
     controlLoop.suspend();  
-    calibrateDrivetrain();
+    // calibrateDrivetrain();
     B_R.setVelocity(100, percent);
     B_R.setMaxTorque(100, percent);
     B_R.setStopping(brake);
@@ -188,8 +188,10 @@ void part1() {
     LeftDriveSmart.spinFor(-150, degrees, false);
     RightDriveSmart.spinFor(-600, degrees);
 
-    LeftDriveSmart.setVelocity(25, percent);
-    LeftDriveSmart.spinFor(200, degrees, false);
+    die(5);
+
+    LeftDriveSmart.setVelocity(5, percent);
+    LeftDriveSmart.spinFor(400, degrees, false);
     RightDriveSmart.spinFor(1200, degrees);
     // die(15);
     // turndeg(-128);
