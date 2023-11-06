@@ -136,15 +136,15 @@ void die(double diveTarget) {
     wait(100, msec);
     while (!ifTaskPaused) {
         wait(5, msec);
-        if (fabs(leftVel) <= 0.75 && fabs(rightVel) <= 0.75) {
+        if (fabs(leftVel) <= 2 && fabs(rightVel) <= 2) {
             LeftDriveSmart.stop();
             RightDriveSmart.stop();
             ifTaskPaused = true;
         }
     }
     controlLoop.suspend();
-    LeftDriveSmart.setVelocity(75, percent);
-    RightDriveSmart.setVelocity(75, percent);
+    LeftDriveSmart.setVelocity(100, percent);
+    RightDriveSmart.setVelocity(100, percent);
 }
 
 void turndeg(float ang) {
@@ -182,8 +182,15 @@ void setup() {
 void part1() {
     B_R.spin(forward);
     die(32);
-    LeftDriveSmart.spinFor(90, degrees);
-    RightDriveSmart.spinFor(180, degrees);
+
+    LeftDriveSmart.setVelocity(65, percent);
+    RightDriveSmart.setVelocity(100, percent);
+    LeftDriveSmart.spinFor(-150, degrees, false);
+    RightDriveSmart.spinFor(-600, degrees);
+
+    LeftDriveSmart.setVelocity(25, percent);
+    LeftDriveSmart.spinFor(200, degrees, false);
+    RightDriveSmart.spinFor(1200, degrees);
     // die(15);
     // turndeg(-128);
     // die(7.5);
