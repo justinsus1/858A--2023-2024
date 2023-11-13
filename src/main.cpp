@@ -93,6 +93,7 @@ void setup();
 void Part1();
 void Part2();
 void Part3();
+void touch();
 
 task controlLoop(control);
 
@@ -177,6 +178,9 @@ void setup() {
     Drivetrain.setStopping(hold);
     Drivetrain.drive(reverse);
     Brain.Screen.print("hello");
+    B_R.spin(forward);
+    touch();
+    B_R.stop();
 }
 
 void part1() {
@@ -190,7 +194,7 @@ void part1() {
 
     die(5);
     LeftDriveSmart.spinFor(-180, degrees);
-    wait(2, seconds);
+    // wait(100, msec);
 
     RightDriveSmart.setVelocity(75, percent);
     LeftDriveSmart.setVelocity(35, percent);
@@ -198,30 +202,20 @@ void part1() {
     RightDriveSmart.spinFor(1200, degrees);
     RightDriveSmart.setVelocity(100, percent);
     LeftDriveSmart.setVelocity(100, percent);
-    turndeg(37);
-    die(16);
+    turndeg(32);
+    turndeg(0 - BrainInertial.rotation());
+    die(32);
     turndeg(80);
-    die(24);
-    turndeg(BrainInertial.heading());
+    die(15);
     turndeg(30);
-    Drivetrain.setDriveVelocity(80, percent);
-    Drivetrain.drive(forward);
-    wait(3, seconds);
-    Drivetrain.stop();
-    B_R.stop();
-    die(-10);
-    // turndeg(-128);
-    // die(7.5);
-    // turndeg(42);
-    // die(20);
-    // turndeg(85);
+    die(3);
+    turndeg(170);
+    // Drivetrain.setDriveVelocity(60, percent);
     // Drivetrain.drive(forward);
-    // wait(2, seconds);
-    // Drivetrain.stop();
-    // B_R.stop();
-    // Drivetrain.drive(reverse);
     // wait(3, seconds);
     // Drivetrain.stop();
+    // B_R.stop();
+    // die(-20);
 }
 
 void part2() {
@@ -242,6 +236,7 @@ void touch() {
 
 int main() {                                             
     setup();
+    wait(1, seconds);
     touch();
     part1();
     return 0; 
