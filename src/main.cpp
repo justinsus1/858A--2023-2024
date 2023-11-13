@@ -60,7 +60,7 @@ motor B_RMotorA = motor(PORT4, false);
 motor B_RMotorB = motor(PORT5, true);
 motor_group B_R = motor_group(B_RMotorA, B_RMotorB);
 
-// touchled touchdakid = touchled(PORT6);
+touchled touchdakid = touchled(PORT1);
 
 void calibrateDrivetrain() {
     wait(200, msec);
@@ -163,7 +163,7 @@ void turndeg(float ang) {
 
 void setup() {
     controlLoop.suspend();  
-    // calibrateDrivetrain();
+    calibrateDrivetrain();
     B_R.setVelocity(100, percent);
     B_R.setMaxTorque(100, percent);
     B_R.setStopping(brake);
@@ -199,7 +199,17 @@ void part1() {
     RightDriveSmart.setVelocity(100, percent);
     LeftDriveSmart.setVelocity(100, percent);
     turndeg(37);
-    // die(15);
+    die(16);
+    turndeg(80);
+    die(24);
+    turndeg(BrainInertial.heading());
+    turndeg(30);
+    Drivetrain.setDriveVelocity(80, percent);
+    Drivetrain.drive(forward);
+    wait(3, seconds);
+    Drivetrain.stop();
+    B_R.stop();
+    die(-10);
     // turndeg(-128);
     // die(7.5);
     // turndeg(42);
@@ -225,8 +235,14 @@ void part2() {
     Drivetrain.stop();
 }
 
+void touch() {
+    while (not(touchdakid.pressing())) {
+    }
+}
+
 int main() {                                             
     setup();
+    touch();
     part1();
     return 0; 
 }
