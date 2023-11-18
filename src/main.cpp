@@ -198,7 +198,7 @@ void part1() {
 
     RightDriveSmart.setVelocity(75, percent);
     LeftDriveSmart.setVelocity(35, percent);
-    LeftDriveSmart.spinFor(600, degrees, false);
+    LeftDriveSmart.spinFor(600, degrees, falses);
     RightDriveSmart.spinFor(1200, degrees);
     RightDriveSmart.setVelocity(100, percent);
     LeftDriveSmart.setVelocity(100, percent);
@@ -210,12 +210,12 @@ void part1() {
     turndeg(30);
     die(3);
     turndeg(170);
-    // Drivetrain.setDriveVelocity(60, percent);
-    // Drivetrain.drive(forward);
-    // wait(3, seconds);
-    // Drivetrain.stop();
-    // B_R.stop();
-    // die(-20);
+    // die(-10);
+    // die(60);
+    // LeftDriveSmart.setVelocity(75, percent);
+    // RightDriveSmart.setVelocity(35 , percent);
+    // LeftDriveSmart.spinFor(1200, degrees);
+    // RightDriveSmart.spinFor(600, degrees);
 }
 
 void part2() {
