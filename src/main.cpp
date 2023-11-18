@@ -198,7 +198,7 @@ void part1() {
 
     RightDriveSmart.setVelocity(75, percent);
     LeftDriveSmart.setVelocity(35, percent);
-    LeftDriveSmart.spinFor(600, degrees, falses);
+    LeftDriveSmart.spinFor(600, degrees, false);
     RightDriveSmart.spinFor(1200, degrees);
     RightDriveSmart.setVelocity(100, percent);
     LeftDriveSmart.setVelocity(100, percent);
