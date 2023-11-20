@@ -57,7 +57,7 @@ motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
 
 motor B_RMotorA = motor(PORT4, false);
-motor B_RMotorB = motor(PORT5, true);
+motor B_RMotorB = motor(PORT6, true);
 motor_group B_R = motor_group(B_RMotorA, B_RMotorB);
 
 touchled touchdakid = touchled(PORT1);
@@ -127,12 +127,12 @@ int control() {
     }
 }
 
-void die(double diveTarget) {
+void die(double dieTarget) {
     LeftDriveSmart.setPosition(0, degrees);
     RightDriveSmart.setPosition(0, degrees);
     ifTaskPaused = false;
-    diveTarget = diveTarget * 24.5;
-    Target = diveTarget * 2;
+    dieTarget = dieTarget * 24.5;
+    Target = dieTarget * 2;
     controlLoop.resume();
     wait(100, msec);
     while (!ifTaskPaused) {
@@ -210,12 +210,13 @@ void part1() {
     turndeg(30);
     die(3);
     turndeg(170);
-    // die(-10);
-    // die(60);
-    // LeftDriveSmart.setVelocity(75, percent);
-    // RightDriveSmart.setVelocity(35 , percent);
-    // LeftDriveSmart.spinFor(1200, degrees);
-    // RightDriveSmart.spinFor(600, degrees);
+    die(-10);
+    die(60);
+
+
+    Drivetrain.drive(reverse);
+    wait(3500, msec);
+    Drivetrain.stop();
 }
 
 void part2() {
@@ -227,6 +228,23 @@ void part2() {
     Drivetrain.drive(reverse);
     wait(3, seconds);
     Drivetrain.stop();
+}
+
+void part3() {
+    B_R.spin(forward);
+    die(28.5);
+    die(-20.5);
+    turndeg(-45);
+    wait(500, msec);
+    die(14);
+    turndeg(60);
+    Drivetrain.drive(reverse);
+    wait(1, seconds);
+    Drivetrain.stop();
+    LeftDriveSmart.spin(reverse);
+    wait(500, msec);
+    LeftDriveSmart.stop();
+    B_R.stop();
 }
 
 void touch() {
