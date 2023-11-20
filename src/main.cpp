@@ -168,8 +168,8 @@ void setup() {
     B_R.setVelocity(100, percent);
     B_R.setMaxTorque(100, percent);
     B_R.setStopping(brake);
-    LeftDriveSmart.setVelocity(100, percent);
-    RightDriveSmart.setVelocity(100, percent);
+    LeftDriveSmart.setVelocity(80, percent);
+    RightDriveSmart.setVelocity(80, percent);
     LeftDriveSmart.setMaxTorque(75, percent);
     RightDriveSmart.setMaxTorque(75, percent);
     LeftDriveSmart.setStopping(hold);
