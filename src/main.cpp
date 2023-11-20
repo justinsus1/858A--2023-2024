@@ -179,7 +179,7 @@ void setup() {
     Drivetrain.drive(reverse);
     Brain.Screen.print("hello");
     B_R.spin(forward);
-    touch();
+    // touch();
     B_R.stop();
 }
 
@@ -204,22 +204,32 @@ void part1() {
     LeftDriveSmart.setVelocity(100, percent);
     turndeg(32);
     turndeg(0 - BrainInertial.rotation());
-    die(32);
-    turndeg(80);
-    die(15);
+    Drivetrain.drive(forward);
+    wait(2, seconds);
+    Drivetrain.stop();
+    die(-6);
+    turndeg(75);
+    die(25);
     turndeg(30);
+    die(4);
+    turndeg(200);
     die(3);
-    turndeg(170);
-    die(-10);
-    die(60);
-    turndeg(-30);
-    die(10);
-    turndeg(-19);
-    die(13);
-    turndeg(-79);
+    Drivetrain.drive(reverse);
+    wait(1, seconds);
+    Drivetrain.stop();
+    die(67);
+    turndeg(-45);
+    die(24);
+    turndeg(-70);
+    // die(-7);
+    // turndeg(-79);
     Drivetrain.drive(reverse);
     wait(3500, msec);
     Drivetrain.stop();
+    B_R.setTimeout(2, seconds);
+    B_R.spinFor(-450, degrees);
+    wait(2, seconds);
+    B_R.spin(forward);
 }
 
 void part2() {
@@ -257,8 +267,8 @@ void touch() {
 
 int main() {                                             
     setup();
-    wait(1, seconds);
-    touch();
+    // wait(1, seconds);
+    // touch();
     part1();
     part2();
     touch();
