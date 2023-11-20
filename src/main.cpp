@@ -212,8 +212,11 @@ void part1() {
     turndeg(170);
     die(-10);
     die(60);
-
-
+    turndeg(-30);
+    die(10);
+    turndeg(-19);
+    die(13);
+    turndeg(-79);
     Drivetrain.drive(reverse);
     wait(3500, msec);
     Drivetrain.stop();
@@ -257,5 +260,8 @@ int main() {
     wait(1, seconds);
     touch();
     part1();
+    part2();
+    touch();
+    part3();
     return 0; 
 }
