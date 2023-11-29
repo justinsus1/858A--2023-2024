@@ -199,19 +199,23 @@ void part1() {
     LeftDriveSmart.setVelocity(35, percent);
     LeftDriveSmart.spinFor(600, degrees, false);
     RightDriveSmart.spinFor(1200, degrees);
-    RightDriveSmart.setVelocity(100, percent);
-    LeftDriveSmart.setVelocity(100, percent);
+    RightDriveSmart.setVelocity(90, percent);
+    LeftDriveSmart.setVelocity(90, percent);
     turndeg(32);
     turndeg(0 - BrainInertial.rotation());
+    RightDriveSmart.setVelocity(70, percent);
+    LeftDriveSmart.setVelocity(70, percent);
     Drivetrain.drive(forward);
     wait(2, seconds);
     Drivetrain.stop();
+    RightDriveSmart.setVelocity(90, percent);
+    LeftDriveSmart.setVelocity(90, percent);
     drive(-6);
     turndeg(75);
     drive(25);
     turndeg(30);
     drive(4);
-    turndeg(200);
+    turndeg(220);
     drive(3);
     LeftDriveSmart.setVelocity(65, percent);
     RightDriveSmart.setVelocity(65, percent);
@@ -220,67 +224,67 @@ void part1() {
     drive(60);
     LeftDriveSmart.setVelocity(90, percent);
     RightDriveSmart.setVelocity(90, percent);
-    turndeg(-32.5);
-    drive(3);
-    turndeg(-32.5);
+    turndeg(-42.5);
+    drive(1);
+    turndeg(-52.5);
     drive(24);
-    turndeg(-70);
+    turndeg(-75);
     // drive(-7);
     // turndeg(-79);
-    LeftDriveSmart.setVelocity(60, percent);
+    LeftDriveSmart.spin(forward);
     Drivetrain.drive(reverse);
     wait(3500, msec);
     Drivetrain.stop();
-    LeftDriveSmart.setVelocity(60, percent);
+    wait(1, seconds);
+    LeftDriveSmart.stop();
     B_R.setTimeout(2, seconds);
-    B_R.spinFor(-1250, degrees);
+    B_R.spinFor(-450, degrees);
     wait(2, seconds);
-    B_R.spinFor(1500, degrees);
+    B_R.spinFor(600, degrees);
 }
 
 void part2() {
-    // B_R.spin(forward);
-    // turndeg(-25);
-    // drive(7);
-    // turndeg(-35);
-    // drive(17.5);
-    // turndeg(40);
-    // drive(23.5);
-    // turndeg(165);
-    // wait(500, msec);
-    // drive(14);
-    // wait(1, seconds);
-    // turndeg(70);
-    // Drivetrain.drive(reverse);
-    // wait(1, seconds);
-    // Drivetrain.stop();
-    // LeftDriveSmart.spin(reverse);
-    // wait(500, msec);
-    // LeftDriveSmart.stop();
-    // B_R.stop();
-    // B_R.spinFor(-1250, degrees);
-    // wait(2, seconds);
-    // B_R.spinFor(1500, degrees);
     B_R.spin(forward);
-    Drivetrain.setDriveVelocity(80, percent);
-    drive(31.5);
-    Drivetrain.setDriveVelocity(100, percent);
-    drive(-23.5);
-    turndeg(-45);
+    drive(1);
+    turndeg(-25);
+    drive(7);
+    turndeg(40);
+    drive(23.5);
+    turndeg(165);
     wait(500, msec);
-    drive(25);
-    turndeg(75);
+    drive(14);
+    wait(1, seconds);
+    turndeg(70);
     Drivetrain.drive(reverse);
     wait(1, seconds);
     Drivetrain.stop();
-    RightDriveSmart.spinFor(45, degrees);
     LeftDriveSmart.spin(reverse);
-    wait(1000, msec);
+    wait(500, msec);
     LeftDriveSmart.stop();
     B_R.stop();
     B_R.spinFor(-1250, degrees);
     wait(2, seconds);
     B_R.spinFor(1500, degrees);
+    // B_R.spin(forward);
+    // Drivetrain.setDriveVelocity(80, percent);
+    // drive(31.5);
+    // Drivetrain.setDriveVelocity(100, percent);
+    // drive(-23.5);
+    // turndeg(-45);
+    // wait(500, msec);
+    // drive(25);
+    // turndeg(75);
+    // Drivetrain.drive(reverse);
+    // wait(1, seconds);
+    // Drivetrain.stop();
+    // RightDriveSmart.spinFor(45, degrees);
+    // LeftDriveSmart.spin(reverse);
+    // wait(1000, msec);
+    // LeftDriveSmart.stop();
+    // B_R.stop();
+    // B_R.spinFor(-1250, degrees);
+    // wait(2, seconds);
+    // B_R.spinFor(1500, degrees);
 }
 
 void part3() {
@@ -308,7 +312,6 @@ void part3() {
 
 void touch() {
     while (not(touchdakid.pressing())) {
-        wait(50, msec);
     }
 }
 
@@ -317,7 +320,7 @@ int main() {
     wait(1, seconds);
     touch();
     part1();
-    touch();
+    // touch();
     part2();
     touch();
     part3();
