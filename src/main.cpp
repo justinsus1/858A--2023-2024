@@ -60,7 +60,7 @@ motor B_RMotorA = motor(PORT4, false);
 motor B_RMotorB = motor(PORT6, true);
 motor_group B_R = motor_group(B_RMotorA, B_RMotorB);
 
-touchled touchdakid = touchled(PORT1);
+touchled touchLed = touchled(PORT1);
 
 void calibrateDrivetrain() {
     wait(200, msec);
@@ -174,7 +174,7 @@ void setup() {
     RightDriveSmart.setMaxTorque(100, percent);
     LeftDriveSmart.setStopping(hold);
     RightDriveSmart.setStopping(hold);
-    Drivetrain.setDriveVelocity(75, percent);
+    Drivetrain.setDriveVelocity(90, percent);
     Drivetrain.setStopping(hold);
     Drivetrain.drive(reverse);
     Brain.Screen.print("hello");
@@ -228,7 +228,7 @@ void part1() {
     drive(1);
     turndeg(-52.5);
     drive(24);
-    turndeg(-75);
+    turndeg(-60);
     // drive(-7);
     // turndeg(-79);
     LeftDriveSmart.spin(forward);
@@ -245,16 +245,19 @@ void part1() {
 
 void part2() {
     B_R.spin(forward);
-    drive(1);
-    turndeg(-25);
-    drive(7);
-    turndeg(40);
+    drive(2);
+    turndeg(-50);
+    drive(25);
+    // turndeg(40); 
+    turndeg(29);
     drive(23.5);
-    turndeg(165);
+    turndeg(155);
     wait(500, msec);
-    drive(14);
-    wait(1, seconds);
-    turndeg(70);
+    drive(13.5);
+    B_R.stop();
+    drive(5);
+    turndeg(80);
+    B_R.spin(forward);
     Drivetrain.drive(reverse);
     wait(1, seconds);
     Drivetrain.stop();
@@ -265,6 +268,9 @@ void part2() {
     B_R.spinFor(-1250, degrees);
     wait(2, seconds);
     B_R.spinFor(1500, degrees);
+
+    // Uncomplete code used for practice do not use
+
     // B_R.spin(forward);
     // Drivetrain.setDriveVelocity(80, percent);
     // drive(31.5);
@@ -311,7 +317,7 @@ void part3() {
 }
 
 void touch() {
-    while (not(touchdakid.pressing())) {
+    while (not(touchLed.pressing())) {
     }
 }
 
@@ -320,7 +326,6 @@ int main() {
     wait(1, seconds);
     touch();
     part1();
-    // touch();
     part2();
     touch();
     part3();
