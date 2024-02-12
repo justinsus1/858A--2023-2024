@@ -77,6 +77,7 @@ void calibrateDrivetrain() {
     Brain.Screen.setCursor(1, 1);
 }
 
+// Define Global Variables
 bool ifTaskPaused = true;
 
 double leftVel = 0;
@@ -85,6 +86,7 @@ double rightVel = 0;
 double Target = 0;
 const double kP = 0.4;
 
+// Define Prototype functions
 double calculate(double target, double start);
 void drive(double target);
 void turndeg(float ang);
@@ -97,11 +99,13 @@ void touch();
 
 task controlLoop(control);
 
+// Calculate function to get Velocity
 double calculate(double target, double start) {
     double result = target - start;
     return result * kP;
 }
 
+// Control loop to implement P
 int control() {
     while(true) {
         if (!ifTaskPaused) {
@@ -127,6 +131,7 @@ int control() {
     }
 }
 
+// Function to use the Control loop
 void drive(double driveTarget) {
     LeftDriveSmart.setPosition(0, degrees);
     RightDriveSmart.setPosition(0, degrees);
@@ -147,6 +152,7 @@ void drive(double driveTarget) {
     LeftDriveSmart.setVelocity(90, percent);
     RightDriveSmart.setVelocity(90, percent);
 }
+
 
 void turndeg(float ang) {
     float pi = 3.14;
