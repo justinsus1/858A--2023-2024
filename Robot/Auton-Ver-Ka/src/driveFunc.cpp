@@ -1,21 +1,12 @@
-#pragma region VEXcode Generated Robot Configuration
-// Make sure all required headers are included.
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
-
-
 #include "vex.h"
 
 using namespace vex;
 
-// Brain should be defined by default
-brain Brain;
-
-
-// START IQ MACROS
 #define waitUntil(condition)                                                   \
   do {                                                                         \
     wait(5, msec);                                                             \
@@ -23,13 +14,10 @@ brain Brain;
 
 #define repeat(iterations)                                                     \
   for (int iterator = 0; iterator < iterations; iterator++)
-// END IQ MACROS
-
 
 // Robot configuration code.
 inertial BrainInertial = inertial();
 
-#pragma endregion VEXcode Generated Robot Configuration
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -38,33 +26,28 @@ inertial BrainInertial = inertial();
 /*    Description:  IQ2 project                                               */
 /*                  -                                                          */
 /*---------------------------------------------------------------------------*/
-#include "vex.h"
 
-using namespace vex;
-
-// A global instance of vex::brain used for printing to the IQ2 brain screen
-// vex::brain       Brain;
 
 // define your global instances of motors and other devices here
-
-motor leftMotorA = motor(PORT3, 2.5, true);
+brain Brain;
+motor leftMotorA = motor(PORT4, 2.5, true);
 motor leftMotorB = motor(PORT2, 2.5, true);
 
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 
 
-motor rightMotorA = motor(PORT8, 2.5, false);
-motor rightMotorB = motor(PORT9, 2.5, false);
+motor rightMotorA = motor(PORT10, 2.5, false);
+motor rightMotorB = motor(PORT11, 2.5, false);
 
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
 
-motor basketRollerMotorA = motor(PORT4, false);
-motor basketRollerMotorB = motor(PORT6, true);
+motor basketRollerMotorA = motor(PORT8, false);
+motor basketRollerMotorB = motor(PORT2, true);
 motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
 
-touchled touchLed = touchled(PORT1);
+touchled touchLed = touchled(PORT6);
 
 void calibrateDrivetrain() {
     wait(200, msec);
@@ -87,19 +70,7 @@ double leftVel = 0;
 double rightVel = 0;
 
 double Target = 0;
-const double kP = 0.4;
-
-double calculate(double target, double start);
-void drive(double target);
-void turndeg(float ang);
-int control();
-void setup();
-void Part1();
-void Part2();
-void Part3();
-void touch();
-
-task controlLoop(control);
+const double kP = 0.13;
 
 double calculate(double target, double start) {
     double result = target - start;
@@ -125,7 +96,7 @@ int control() {
 
             Brain.Screen.print("%lf\n", leftVel);
             printf("%lf\n", LeftDriveSmart.position(degrees));
-            printf("%lf\n", Target);
+            printf("%lf\n\n\n\n", Target);
         } else {
             LeftDriveSmart.stop();
             RightDriveSmart.stop();
@@ -136,12 +107,14 @@ int control() {
     }
 }
 
+task controlLoop(control);
+
 void drive(double driveTarget) {
     LeftDriveSmart.setPosition(0, degrees);
     RightDriveSmart.setPosition(0, degrees);
 
     ifTaskPaused = false;
-    driveTarget = driveTarget * 24.5;
+    driveTarget = driveTarget * 25.4;
     Target = driveTarget * 2;
 
     controlLoop.resume();
@@ -161,109 +134,31 @@ void drive(double driveTarget) {
     RightDriveSmart.setVelocity(90, percent);
 }
 
-void turndeg(float ang) {
-    float pi = 3.14;
-    int w = 225;
-    int wheel_size = 200;
-    float x = -112.5;
-    int gear_r = 2;
+// void turndeg(int ang = 90, int Ts = 100, float x = -114) {
+//     float pi = 3.14;
+//     int w = 228;
+//     int wheel_size = 200;
+//     int gear_r = 2;
 
-    float l = 2 * pi * (x + w) * (ang / 360);
-    float r = 2 * pi * x * (ang / 360);
+//     // printf("%f\n", ang);
+//     // printf("%f\n", Ts);
+//     // printf("%f\n", x);
 
-    l = l / wheel_size / gear_r * 360 * 2;
-    r = r / wheel_size / gear_r * 360 * 2;
+//     float l = 2 * pi * (x + w) * (ang / 360);
+//     float r = 2 * pi * x * (ang / 360);
 
-    LeftDriveSmart.spinFor(forward, l, degrees, false);
-    RightDriveSmart.spinFor(forward, r, degrees);
-}
+//     float lSpeed = l > r ? Ts : l == 0 ? 0 : Ts * (r / l);
+//     float rSpeed = r > l ? Ts : r == 0 ? 0 : Ts * (l / r);
 
-void setup() {
-    controlLoop.suspend();  
-    calibrateDrivetrain();
+//     l = l / wheel_size / gear_r * 360 * 2;
+//     r = r / wheel_size / gear_r * 360 * 2;
 
-    basketRoller.setVelocity(100, percent);
-    basketRoller.setMaxTorque(100, percent);
-    basketRoller.setStopping(brake);
+//     // printf("%f\n", l);
+//     // printf("%f\n", r);
 
-    LeftDriveSmart.setVelocity(90, percent);
-    RightDriveSmart.setVelocity(90, percent);
+//     LeftDriveSmart.setVelocity(lSpeed, percent);
+//     RightDriveSmart.setVelocity(rSpeed, percent);
 
-    LeftDriveSmart.setMaxTorque(100, percent);
-    RightDriveSmart.setMaxTorque(100, percent);
-
-    LeftDriveSmart.setStopping(hold);
-    RightDriveSmart.setStopping(hold);
-
-    Drivetrain.setDriveVelocity(90, percent);
-    Drivetrain.setStopping(hold);
-    Drivetrain.drive(reverse);
-
-    Brain.Screen.print("hello");
-    basketRoller.spin(forward);
-    touch();
-    basketRoller.stop();
-}
-
-void part1() {
-    basketRoller.spin(forward);
-    LeftDriveSmart.setVelocity(90, percent);
-    RightDriveSmart.setVelocity(90, percent);
-    drive(31.5);
-    // Arch
-    drive(16);
-    Drivetrain.turnToHeading(90, degrees);
-    drive(4);
-    turndeg(70);
-    drive(6);
-    turndeg(10);
-    drive(23);
-    // To be continued
-}
-
-void part2() {
-}
-
-void part3() {
-    basketRoller.spin(forward);
-
-    Drivetrain.setDriveVelocity(80, percent);
-    drive(31.5);
-    Drivetrain.setDriveVelocity(90, percent);
-
-    drive(-23.5);
-    turndeg(45);
-    wait(500, msec);
-    drive(25);
-    turndeg(-75);
-
-    Drivetrain.drive(reverse);
-    wait(1, seconds);
-    Drivetrain.stop();
-
-    LeftDriveSmart.spinFor(75, degrees);
-    RightDriveSmart.spin(reverse);
-
-    wait(200, msec);
-    RightDriveSmart.stop();
-    basketRoller.stop();
-    basketRoller.spinFor(-1250, degrees);
-    wait(800, msec);
-    Drivetrain.drive(forward);
-}
-
-void touch() {
-    while (!touchLed.pressing()) {
-    }
-}
-
-int main() {
-    setup();
-    wait(1, seconds);
-    touch();
-    // part1();
-    // part2();
-    // touch();
-    part3();
-    return 0; 
-}
+//     LeftDriveSmart.spinFor(forward, l, degrees, false);
+//     RightDriveSmart.spinFor(forward, r, degrees);
+// }
