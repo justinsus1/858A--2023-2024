@@ -30,6 +30,8 @@ inertial BrainInertial = inertial();
 
 // define your global instances of motors and other devices here
 brain Brain;
+
+
 motor leftMotorA = motor(PORT4, 2.5, true);
 motor leftMotorB = motor(PORT2, 2.5, true);
 
@@ -138,6 +140,15 @@ void drive(double driveTarget) {
     RightDriveSmart.setVelocity(90, percent);
 }
 
+/**
+ * @brief Turning the robot
+ * 
+ * @param angle 
+ * @param Ts 
+ * @param radius 
+ * @param driveDirection 
+ * @param turnDirection 
+ */
 void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDirection = 1, bool turnDirection = true) {
     // printf("hello from turndeg\n");
     double outerWheelDistance, innerWheelDistance;
@@ -148,7 +159,7 @@ void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDir
     // printf("ang: %d\n", angle);
     // printf("Ts: %d\n", Ts);
     // printf("radius: %lf\n", radius);
-    // printf("driveDirection: %d\n", driveDirection);
+    printf("driveDirection: %d\n", driveDirection);
     // printf("turnDirection: %d\n", turnDirection);
 
     outerWheelDistance = 2 * M_PI * (radius + WIDTH) * (angle / 360);
@@ -172,9 +183,12 @@ void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDir
     printf("innerspeed: %lf\n", innerSpeed);
     // printf("innerMotorAngle: %lf\n", innerMotorAngle);
     // printf("outerMotorAngle: %lf\n", outerMotorAngle);
-    // printf("leftAngle: %lf\n", leftAngle);
-    // printf("rightAngle: %lf\n", rightAngle);
+    printf("leftAngle: %lf\n", leftAngle);
+    printf("rightAngle: %lf\n", rightAngle);
 
-    LeftDriveSmart.spinFor(forward, leftAngle, degrees, false);
-    RightDriveSmart.spinFor(forward, rightAngle, degrees);
+    LeftDriveSmart.spinFor(driveDirection == 1 ? forward : reverse, leftAngle, degrees, false);
+    RightDriveSmart.spinFor(driveDirection == 1 ? forward : reverse, rightAngle, degrees);
+
+    LeftDriveSmart.setVelocity(70, percent);
+    RightDriveSmart.setVelocity(70, percent);
 }

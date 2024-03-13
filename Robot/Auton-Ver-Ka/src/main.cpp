@@ -17,11 +17,13 @@ void Part3();
 void touch();
 
 void setup() {
+    controller Controller1 = controller();
+
     controlLoop.suspend();
     calibrateDrivetrain();
 
-    basketRoller.setVelocity(100, percent);
-    basketRoller.setMaxTorque(100, percent);
+    basketRoller.setVelocity(300, percent);
+    basketRoller.setMaxTorque(300, percent);
     basketRoller.setStopping(brake);
 
     LeftDriveSmart.setVelocity(100, percent);
@@ -42,7 +44,7 @@ void setup() {
     Brain.Screen.print("hello");
     basketRoller.spin(forward);
 
-    touch();
+    // touch();
     touchLed.setColor(green);
 
     basketRoller.stop();
@@ -50,47 +52,39 @@ void setup() {
 }
 
 void part1() {
+    printf("driving\n");
     basketRoller.spin(forward);
 
-    LeftDriveSmart.setVelocity(90, percent);
-    RightDriveSmart.setVelocity(90, percent);
-
     drive(16.5);
-    LeftDriveSmart.setVelocity(100, percent);
-    RightDriveSmart.setVelocity(100, percent);
-    turndeg(60, 100, 300, 1, true);
 
-    wait(3, seconds);
-    drive(16);
+    turndeg(60, 70, 100, 1, true);
 
-    Drivetrain.turnToHeading(90, degrees);
-
-    drive(4);
-    // turndeg(70);
-    drive(6);
+    drive(30);
     
-    // turndeg(10);
-    drive(23);
+    turndeg(25, 70, 150, 1, false);
+    wait(500, msec);
+    drive(12);
+    wait(500, msec);
+
+    turndeg(70, 80, 100, 1, true);
+    drive(3);
+
+    wait(500, msec);
+    turndeg(180, 60, 50, -1, true);
     // To be continued
-    basketRoller.stop();
+    // basketRoller.stop();
 }
 
 void part2() {
-    basketRoller.spin(forward);
-
-    drive(44);
-    LeftDriveSmart.setVelocity(35, percent);
-    RightDriveSmart.setVelocity(75, percent);
-
-    LeftDriveSmart.spinFor(600, degrees, false);
-    RightDriveSmart.spinFor(1200, degrees);
-
-    LeftDriveSmart.setVelocity(100, percent);
-    RightDriveSmart.setVelocity(100, percent);
-
-    drive(36);
-    // turndeg(45);
-    // drive()
+    drive(30);
+    turndeg(60, 70, 200, 1, false);
+    drive(23);
+    LeftDriveSmart.setStopping(hold);
+    LeftDriveSmart.spinFor(-50, degrees, false);
+    wait(1, seconds);
+    RightDriveSmart.spinFor(380, degrees);
+    drive(-15);
+    printf("done\n");
 }
 
 void part3() {
@@ -123,16 +117,17 @@ void part3() {
 
 void touch() {
     while (!touchLed.pressing()) {
+        wait(10, msec);
     }
 }
 
 int main() {
-    
+    printf("\n\nAuton:\n");
     setup();
     wait(1, seconds);
-    touch();
-    part1();
-    // part2();
+    // touch();
+    // part1();
+    part2();
     // touch();
     // part3();
     return 0;
