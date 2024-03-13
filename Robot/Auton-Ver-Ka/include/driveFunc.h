@@ -4,9 +4,11 @@ int control(void);
 double calculate(double, double);
 void drive(double);
 
-// void turndeg(int, int);
-// void turndeg(int);
-// void turndeg(int, int, float);
+void turndeg(double);
+void turndeg(double, int);
+void turndeg(double, int, double);
+void turndeg(double, int, double, int);
+void turndeg(double, int, double, int, bool);
 
 void calibrateDrivetrain(void);
 

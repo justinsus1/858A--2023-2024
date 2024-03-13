@@ -49,6 +49,10 @@ motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
 
 touchled touchLed = touchled(PORT6);
 
+#define WIDTH 228
+#define GEAR_RATIO 2
+#define WHEEL_SIZE 200
+
 void calibrateDrivetrain() {
     wait(200, msec);
     Brain.Screen.print("Calibrating");
@@ -134,31 +138,43 @@ void drive(double driveTarget) {
     RightDriveSmart.setVelocity(90, percent);
 }
 
-// void turndeg(int ang = 90, int Ts = 100, float x = -114) {
-//     float pi = 3.14;
-//     int w = 228;
-//     int wheel_size = 200;
-//     int gear_r = 2;
+void turndeg(double angle = 90, int Ts = 100, double radius = 100, int driveDirection = 1, bool turnDirection = true) {
+    // printf("hello from turndeg\n");
+    double outerWheelDistance, innerWheelDistance;
+    double outerMotorAngle, innerMotorAngle;
+    double leftAngle, rightAngle;
+    double innerSpeed, outerSpeed;
 
-//     // printf("%f\n", ang);
-//     // printf("%f\n", Ts);
-//     // printf("%f\n", x);
+    // printf("ang: %d\n", angle);
+    // printf("Ts: %d\n", Ts);
+    // printf("radius: %lf\n", radius);
+    // printf("driveDirection: %d\n", driveDirection);
+    // printf("turnDirection: %d\n", turnDirection);
 
-//     float l = 2 * pi * (x + w) * (ang / 360);
-//     float r = 2 * pi * x * (ang / 360);
+    outerWheelDistance = 2 * M_PI * (radius + WIDTH) * (angle / 360);
+    innerWheelDistance = 2 * M_PI * radius * (angle / 360);
 
-//     float lSpeed = l > r ? Ts : l == 0 ? 0 : Ts * (r / l);
-//     float rSpeed = r > l ? Ts : r == 0 ? 0 : Ts * (l / r);
+    outerMotorAngle = outerWheelDistance / WHEEL_SIZE / GEAR_RATIO * 360;
+    innerMotorAngle = innerWheelDistance / WHEEL_SIZE / GEAR_RATIO * 360;
 
-//     l = l / wheel_size / gear_r * 360 * 2;
-//     r = r / wheel_size / gear_r * 360 * 2;
+    outerSpeed = Ts * driveDirection;
+    innerSpeed = innerMotorAngle / outerMotorAngle * Ts * driveDirection;
 
-//     // printf("%f\n", l);
-//     // printf("%f\n", r);
+    leftAngle = turnDirection ? outerMotorAngle : innerMotorAngle;
+    rightAngle = turnDirection ? innerMotorAngle : outerMotorAngle;
 
-//     LeftDriveSmart.setVelocity(lSpeed, percent);
-//     RightDriveSmart.setVelocity(rSpeed, percent);
+    LeftDriveSmart.setVelocity(turnDirection ? outerSpeed : innerSpeed, percent);
+    RightDriveSmart.setVelocity(turnDirection ? innerSpeed : outerSpeed, percent);
 
-//     LeftDriveSmart.spinFor(forward, l, degrees, false);
-//     RightDriveSmart.spinFor(forward, r, degrees);
-// }
+    // printf("outerwheel: %lf\n", outerWheelDistance);
+    // printf("innerwheel: %lf\n", innerWheelDistance);
+    // printf("outerspeed: %lf\n", outerSpeed);
+    // printf("innerspeed: %lf\n", innerSpeed);
+    // printf("innerMotorAngle: %lf\n", innerMotorAngle);
+    // printf("outerMotorAngle: %lf\n", outerMotorAngle);
+    // printf("leftAngle: %lf\n", leftAngle);
+    // printf("rightAngle: %lf\n", rightAngle);
+
+    LeftDriveSmart.spinFor(forward, leftAngle, degrees, false);
+    RightDriveSmart.spinFor(forward, rightAngle, degrees);
+}

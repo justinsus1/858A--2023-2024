@@ -157,6 +157,6 @@ int main() {
     // part2();
     // touch();
     // part3();
-    turndeg(90, 100, -114);
+    turndeg(90, 80, 100, 1, true);
     return 0;
 }
