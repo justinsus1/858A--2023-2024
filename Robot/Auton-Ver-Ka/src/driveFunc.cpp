@@ -44,7 +44,7 @@ motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
 
 motor basketRollerMotorA = motor(PORT8, false);
-motor basketRollerMotorB = motor(PORT2, true);
+motor basketRollerMotorB = motor(PORT12, true);
 motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
 
 touchled touchLed = touchled(PORT6);
@@ -99,8 +99,8 @@ int control() {
             wait(10, msec);
 
             Brain.Screen.print("%lf\n", leftVel);
-            printf("%lf\n", LeftDriveSmart.position(degrees));
-            printf("%lf\n\n\n\n", Target);
+            // printf("%lf\n", LeftDriveSmart.position(degrees));
+            // printf("%lf\n\n\n\n", Target);
         } else {
             LeftDriveSmart.stop();
             RightDriveSmart.stop();
@@ -138,7 +138,7 @@ void drive(double driveTarget) {
     RightDriveSmart.setVelocity(90, percent);
 }
 
-void turndeg(double angle = 90, int Ts = 100, double radius = 100, int driveDirection = 1, bool turnDirection = true) {
+void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDirection = 1, bool turnDirection = true) {
     // printf("hello from turndeg\n");
     double outerWheelDistance, innerWheelDistance;
     double outerMotorAngle, innerMotorAngle;
@@ -154,8 +154,8 @@ void turndeg(double angle = 90, int Ts = 100, double radius = 100, int driveDire
     outerWheelDistance = 2 * M_PI * (radius + WIDTH) * (angle / 360);
     innerWheelDistance = 2 * M_PI * radius * (angle / 360);
 
-    outerMotorAngle = outerWheelDistance / WHEEL_SIZE / GEAR_RATIO * 360;
-    innerMotorAngle = innerWheelDistance / WHEEL_SIZE / GEAR_RATIO * 360;
+    outerMotorAngle = outerWheelDistance / WHEEL_SIZE * 360;
+    innerMotorAngle = innerWheelDistance / WHEEL_SIZE * 360;
 
     outerSpeed = Ts * driveDirection;
     innerSpeed = innerMotorAngle / outerMotorAngle * Ts * driveDirection;
@@ -168,8 +168,8 @@ void turndeg(double angle = 90, int Ts = 100, double radius = 100, int driveDire
 
     // printf("outerwheel: %lf\n", outerWheelDistance);
     // printf("innerwheel: %lf\n", innerWheelDistance);
-    // printf("outerspeed: %lf\n", outerSpeed);
-    // printf("innerspeed: %lf\n", innerSpeed);
+    printf("outerspeed: %lf\n", outerSpeed);
+    printf("innerspeed: %lf\n", innerSpeed);
     // printf("innerMotorAngle: %lf\n", innerMotorAngle);
     // printf("outerMotorAngle: %lf\n", outerMotorAngle);
     // printf("leftAngle: %lf\n", leftAngle);

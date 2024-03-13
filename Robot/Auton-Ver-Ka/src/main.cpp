@@ -16,7 +16,6 @@ void Part2();
 void Part3();
 void touch();
 
-
 void setup() {
     controlLoop.suspend();
     calibrateDrivetrain();
@@ -36,42 +35,18 @@ void setup() {
 
     Drivetrain.setDriveVelocity(90, percent);
     Drivetrain.setStopping(hold);
-    Drivetrain.drive(reverse);
+    // Drivetrain.drive(reverse);
+
+    touchLed.setColor(red);
 
     Brain.Screen.print("hello");
     basketRoller.spin(forward);
+
     touch();
+    touchLed.setColor(green);
+
     basketRoller.stop();
     Drivetrain.stop();
-}
-
-void turndeg(int ang = 90, int Ts = 100, float x = -114) {
-    float pi = 3.14;
-    int w = 228;
-    int wheel_size = 200;
-    int gear_r = 2;
-
-    // printf("%f\n", ang);
-    // printf("%f\n", Ts);
-    // printf("%f\n", x);
-
-    float l = 2 * pi * (x + w) * (ang / 360);
-    float r = 2 * pi * x * (ang / 360);
-
-    float lSpeed = l > r ? Ts : l == 0 ? 0 : Ts * (r / l);
-    float rSpeed = r > l ? Ts : r == 0 ? 0 : Ts * (l / r);
-
-    l = l / wheel_size / gear_r * 360 * 2;
-    r = r / wheel_size / gear_r * 360 * 2;
-
-    // printf("%f\n", l);
-    // printf("%f\n", r);
-
-    LeftDriveSmart.setVelocity(lSpeed, percent);
-    RightDriveSmart.setVelocity(rSpeed, percent);
-
-    LeftDriveSmart.spinFor(forward, l, degrees, false);
-    RightDriveSmart.spinFor(forward, r, degrees);
 }
 
 void part1() {
@@ -80,19 +55,21 @@ void part1() {
     LeftDriveSmart.setVelocity(90, percent);
     RightDriveSmart.setVelocity(90, percent);
 
-    drive(31.5);
+    drive(16.5);
     LeftDriveSmart.setVelocity(100, percent);
     RightDriveSmart.setVelocity(100, percent);
-    // Arch
+    turndeg(60, 100, 300, 1, true);
+
+    wait(3, seconds);
     drive(16);
 
     Drivetrain.turnToHeading(90, degrees);
 
     drive(4);
-    turndeg(70);
+    // turndeg(70);
     drive(6);
     
-    turndeg(10);
+    // turndeg(10);
     drive(23);
     // To be continued
     basketRoller.stop();
@@ -112,7 +89,7 @@ void part2() {
     RightDriveSmart.setVelocity(100, percent);
 
     drive(36);
-    turndeg(45);
+    // turndeg(45);
     // drive()
 }
 
@@ -124,10 +101,10 @@ void part3() {
     Drivetrain.setDriveVelocity(90, percent);
 
     drive(-23.5);
-    turndeg(45);
+    // turndeg(45);
     wait(500, msec);
     drive(25);
-    turndeg(-75);
+    // turndeg(-75);
 
     Drivetrain.drive(reverse);
     wait(1, seconds);
@@ -150,13 +127,13 @@ void touch() {
 }
 
 int main() {
+    
     setup();
     wait(1, seconds);
-    // touch();
-    // part1();
+    touch();
+    part1();
     // part2();
     // touch();
     // part3();
-    turndeg(90, 80, 100, 1, true);
     return 0;
 }
