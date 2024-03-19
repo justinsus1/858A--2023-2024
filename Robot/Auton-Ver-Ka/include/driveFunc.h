@@ -4,11 +4,7 @@ int control(void);
 double calculate(double, double);
 void drive(double);
 
-void turndeg(double);
-void turndeg(double, int);
-void turndeg(double, int, double);
-void turndeg(double, int, double, int);
-void turndeg(double, int, double, int, bool);
+void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDirection = 1, bool turnDirection = true);
 
 void calibrateDrivetrain(void);
 
