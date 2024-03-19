@@ -122,7 +122,13 @@ void touch() {
 }
 
 int main() {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     printf("\n\nAuton:\n");
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     setup();
     wait(1, seconds);
     // touch();
