@@ -122,7 +122,7 @@ void setup() {
 
     basketRoller.spin(forward);
 
-    // touch();
+    touch();
     touchLed.setColor(green);
 
     basketRoller.stop();

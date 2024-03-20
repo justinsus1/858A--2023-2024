@@ -34,7 +34,7 @@ void part1() {
     drive(3);
 
     wait(500, msec);
-    turndeg(180, 60, 50, -1, true);
+    turndeg(120, 60, 50, -1, true);
     // To be continued
     // basketRoller.stop();
 }
@@ -62,41 +62,16 @@ void part2() {
 }
 
 void part3() {
-    printf("Part 3\n");
-    basketRoller.spin(forward);
 
-    Drivetrain.setDriveVelocity(80, percent);
-    drive(31.5);
-    Drivetrain.setDriveVelocity(90, percent);
-
-    drive(-23.5);
-    // turndeg(45);
-    wait(500, msec);
-    drive(25);
-    // turndeg(-75);
-
-    Drivetrain.drive(reverse);
-    wait(1, seconds);
-    Drivetrain.stop();
-
-    LeftDriveSmart.spinFor(75, degrees);
-    RightDriveSmart.spin(reverse);
-
-    wait(200, msec);
-    RightDriveSmart.stop();
-    basketRoller.stop();
-    basketRoller.spinFor(-1250, degrees);
-    wait(800, msec);
-    Drivetrain.drive(forward);
 }
 
 int main() {
     printf("\n\nAuton:\n");
     setup();
     wait(1, seconds);
-    // touch();
-    // part1();
+    touch();
+    part1();
     // part2();
-    part3();
+    // part3();
     return 0;
 }
