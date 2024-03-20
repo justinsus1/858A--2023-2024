@@ -7,49 +7,13 @@
 #include <string.h>
 #include "vex.h"
 #include "driveFunc.h"
+#include "preAuton.h"
 
 using namespace vex;
 
-void setup();
-void Part1();
-void Part2();
-void Part3();
-void touch();
-
-void setup() {
-    controller Controller1 = controller();
-
-    controlLoop.suspend();
-    calibrateDrivetrain();
-
-    basketRoller.setVelocity(300, percent);
-    basketRoller.setMaxTorque(300, percent);
-    basketRoller.setStopping(brake);
-
-    LeftDriveSmart.setVelocity(100, percent);
-    RightDriveSmart.setVelocity(100, percent);
-
-    LeftDriveSmart.setMaxTorque(100, percent);
-    RightDriveSmart.setMaxTorque(100, percent);
-
-    LeftDriveSmart.setStopping(hold);
-    RightDriveSmart.setStopping(hold);
-
-    Drivetrain.setDriveVelocity(90, percent);
-    Drivetrain.setStopping(hold);
-    // Drivetrain.drive(reverse);
-
-    touchLed.setColor(red);
-
-    Brain.Screen.print("hello");
-    basketRoller.spin(forward);
-
-    // touch();
-    touchLed.setColor(green);
-
-    basketRoller.stop();
-    Drivetrain.stop();
-}
+void part1();
+void part2();
+void part3();
 
 void part1() {
     printf("driving\n");
@@ -76,9 +40,10 @@ void part1() {
 }
 
 void part2() {
-    drive(30);
-    turndeg(60, 70, 200, 1, false);
+    drive(29);
+    turndeg(75, 70, 200, 1, false);
     drive(23);
+    wait(1, seconds);
     LeftDriveSmart.setStopping(hold);
     LeftDriveSmart.spinFor(-50, degrees, false);
     wait(1, seconds);
@@ -115,14 +80,7 @@ void part3() {
     Drivetrain.drive(forward);
 }
 
-void touch() {
-    while (!touchLed.pressing()) {
-        wait(10, msec);
-    }
-}
-
 int main() {
-    printf("\n\nAuton:\n");
     setup();
     wait(1, seconds);
     // touch();
@@ -130,5 +88,6 @@ int main() {
     part2();
     // touch();
     // part3();
+    
     return 0;
 }
