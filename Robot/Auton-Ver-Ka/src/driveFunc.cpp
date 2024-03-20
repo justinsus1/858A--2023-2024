@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string.h>
 #include "vex.h"
+#include "preAuton.h"
 
 using namespace vex;
 
@@ -14,42 +15,6 @@ using namespace vex;
 
 #define repeat(iterations)                                                     \
   for (int iterator = 0; iterator < iterations; iterator++)
-
-// Robot configuration code.
-inertial BrainInertial = inertial();
-
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       justin_sus1                                               */
-/*    Created:      10/23/2023, 7:48:46 PM                                    */
-/*    Description:  IQ2 project                                               */
-/*                  -                                                          */
-/*---------------------------------------------------------------------------*/
-
-
-// define your global instances of motors and other devices here
-brain Brain;
-
-
-motor leftMotorA = motor(PORT4, 2.5, true);
-motor leftMotorB = motor(PORT2, 2.5, true);
-
-motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-
-
-motor rightMotorA = motor(PORT10, 2.5, false);
-motor rightMotorB = motor(PORT11, 2.5, false);
-
-motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
-
-smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
-
-motor basketRollerMotorA = motor(PORT8, false);
-motor basketRollerMotorB = motor(PORT12, true);
-motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
-
-touchled touchLed = touchled(PORT6);
 
 #define WIDTH 228
 #define GEAR_RATIO 2
@@ -123,6 +88,8 @@ void drive(double driveTarget) {
     driveTarget = driveTarget * 25.4;
     Target = driveTarget * 2;
 
+    printf("Driving for: %lf inches.\n", driveTarget);
+
     controlLoop.resume();
     wait(100, msec);
 
@@ -143,14 +110,13 @@ void drive(double driveTarget) {
 /**
  * @brief Turning the robot
  * 
- * @param angle 
- * @param Ts 
- * @param radius 
- * @param driveDirection 
- * @param turnDirection 
+ * @param angle - degrees
+ * @param Ts - top speed as percentage
+ * @param radius - mm
+ * @param driveDirection - 1 for forward or -1 for reverse
+ * @param turnDirection - true for right and false for left
  */
-void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDirection = 1, bool turnDirection = true) {
-    // printf("hello from turndeg\n");
+void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnDirection) {
     double outerWheelDistance, innerWheelDistance;
     double outerMotorAngle, innerMotorAngle;
     double leftAngle, rightAngle;
@@ -159,7 +125,7 @@ void turndeg(double angle = 90, int Ts = 100, double radius = -114, int driveDir
     // printf("ang: %d\n", angle);
     // printf("Ts: %d\n", Ts);
     // printf("radius: %lf\n", radius);
-    printf("driveDirection: %d\n", driveDirection);
+    // printf("driveDirection: %d\n", driveDirection);
     // printf("turnDirection: %d\n", turnDirection);
 
     outerWheelDistance = 2 * M_PI * (radius + WIDTH) * (angle / 360);
