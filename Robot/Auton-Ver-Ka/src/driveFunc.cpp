@@ -80,6 +80,11 @@ int control() {
 
 task controlLoop(control);
 
+/**
+ * @brief Drive the robot forward or back
+ * 
+ * @param driveTarget distance in inches
+ */
 void drive(double driveTarget) {
     LeftDriveSmart.setPosition(0, degrees);
     RightDriveSmart.setPosition(0, degrees);
@@ -110,11 +115,11 @@ void drive(double driveTarget) {
 /**
  * @brief Turning the robot
  * 
- * @param angle - degrees
- * @param Ts - top speed as percentage
- * @param radius - mm
- * @param driveDirection - 1 for forward or -1 for reverse
- * @param turnDirection - true for right and false for left
+ * @param angle degrees
+ * @param Ts top speed as percentage
+ * @param radius mm
+ * @param driveDirection 1 for forward or -1 for reverse
+ * @param turnDirection true for right and false for left
  */
 void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnDirection) {
     double outerWheelDistance, innerWheelDistance;

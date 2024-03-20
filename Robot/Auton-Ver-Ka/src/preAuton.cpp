@@ -101,6 +101,9 @@ void setup() {
     pneumatics.pumpOff();
     calibrateDrivetrain();
 
+    pneumatics.pumpOn();
+    pneumatics.retract(cylinder1);
+
     basketRoller.setVelocity(300, percent);
     basketRoller.setMaxTorque(300, percent);
     basketRoller.setStopping(hold);
@@ -122,7 +125,7 @@ void setup() {
 
     basketRoller.spin(forward);
 
-    touch();
+    // touch();
     touchLed.setColor(green);
 
     basketRoller.stop();

@@ -21,7 +21,7 @@ void part1() {
 
     drive(16.5);
 
-    turndeg(60, 70, 100, 1, true);
+    turndeg(60, 70, 100);
 
     drive(30);
     
@@ -30,16 +30,30 @@ void part1() {
     drive(12);
     wait(500, msec);
 
-    turndeg(70, 80, 100, 1, true);
+    turndeg(70, 80, 100);
     drive(3);
 
     wait(500, msec);
-    turndeg(120, 60, 50, -1, true);
-    // To be continued
-    // basketRoller.stop();
+    turndeg(120, 60, 50, -1);
+
+    turndeg(120, 100, 100, 1, false);
+
+    drive(3);
+
+    turndeg(30, 100, -114, 1, false);
+
+    Drivetrain.setTimeout(1, seconds);
+    Drivetrain.driveFor(reverse, 10, inches);
+
+    basketRoller.stop();
+    pneumatics.extend(cylinder1);
+    wait(2, seconds);
 }
 
 void part2() {
+    pneumatics.retract(cylinder1);
+    basketRoller.spin(forward);
+
     drive(30);
     turndeg(60, 70, 200, 1, false);
     drive(27);
@@ -50,15 +64,15 @@ void part2() {
     wait(1, seconds);
     RightDriveSmart.spinFor(380, degrees);
 
-    LeftDriveSmart.setTimeout(750, msec);
-    RightDriveSmart.setTimeout(750, msec);
-
-    drive(-20);
+    Drivetrain.setTimeout(750, msec);
+    Drivetrain.driveFor(reverse, 20, inches);
 
     LeftDriveSmart.setTimeout(100, seconds);
     RightDriveSmart.setTimeout(100, seconds);
 
     basketRoller.stop();
+    basketRoller.spinFor(-640, degrees);
+    wait(2, seconds);
 }
 
 void part3() {
@@ -67,11 +81,16 @@ void part3() {
 
 int main() {
     printf("\n\nAuton:\n");
+
     setup();
+
+    pneumatics.pumpOff();
     wait(1, seconds);
     touch();
+
     part1();
     // part2();
     // part3();
+
     return 0;
 }
