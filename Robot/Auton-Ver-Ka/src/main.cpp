@@ -31,27 +31,33 @@ void part1() {
     wait(500, msec);
 
     turndeg(70, 80, 100);
-    drive(3);
+    drive(5);
+    wait(100, msec);
+    drive(-2);
 
     wait(500, msec);
-    turndeg(120, 60, 50, -1);
+    turndeg(120, 60, 70, -1);
 
-    turndeg(120, 100, 100, 1, false);
+    drive(5);
 
-    drive(3);
+    turndeg(110, 100, 150, 1, false);
 
-    turndeg(30, 100, -114, 1, false);
+    // drive(30);
 
-    Drivetrain.setTimeout(1, seconds);
-    Drivetrain.driveFor(reverse, 10, inches);
+    // turndeg(20, 100, -114, 1, false);
 
+    // Drivetrain.setTimeout(1, seconds);
+    // Drivetrain.driveFor(reverse, 10, inches);
+
+    LeftDriveSmart.stop();
+    RightDriveSmart.stop();
     basketRoller.stop();
-    pneumatics.extend(cylinder1);
+    pneumatics.retract(cylinder2);
     wait(2, seconds);
 }
 
 void part2() {
-    pneumatics.retract(cylinder1);
+    pneumatics.extend(cylinder2);
     basketRoller.spin(forward);
 
     drive(30);
@@ -84,9 +90,9 @@ int main() {
 
     setup();
 
-    pneumatics.pumpOff();
     wait(1, seconds);
     touch();
+    pneumatics.pumpOff();
 
     part1();
     // part2();

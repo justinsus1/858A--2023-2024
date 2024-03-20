@@ -102,7 +102,7 @@ void setup() {
     calibrateDrivetrain();
 
     pneumatics.pumpOn();
-    pneumatics.retract(cylinder1);
+    pneumatics.extend(cylinder2);
 
     basketRoller.setVelocity(300, percent);
     basketRoller.setMaxTorque(300, percent);
