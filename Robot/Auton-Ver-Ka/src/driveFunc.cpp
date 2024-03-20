@@ -8,11 +8,6 @@
 
 using namespace vex;
 
-enum direction {
-    Forward = 1,
-    Reverse = -1
-};
-
 #define waitUntil(condition)                                                   \
   do {                                                                         \
     wait(5, msec);                                                             \
@@ -93,6 +88,8 @@ void drive(double driveTarget) {
     driveTarget = driveTarget * 25.4;
     Target = driveTarget * 2;
 
+    printf("Driving for: %lf inches.\n", driveTarget);
+
     controlLoop.resume();
     wait(100, msec);
 
@@ -120,7 +117,6 @@ void drive(double driveTarget) {
  * @param turnDirection - true for right and false for left
  */
 void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnDirection) {
-    // printf("hello from turndeg\n");
     double outerWheelDistance, innerWheelDistance;
     double outerMotorAngle, innerMotorAngle;
     double leftAngle, rightAngle;
@@ -129,7 +125,7 @@ void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnD
     // printf("ang: %d\n", angle);
     // printf("Ts: %d\n", Ts);
     // printf("radius: %lf\n", radius);
-    printf("driveDirection: %d\n", driveDirection);
+    // printf("driveDirection: %d\n", driveDirection);
     // printf("turnDirection: %d\n", turnDirection);
 
     outerWheelDistance = 2 * M_PI * (radius + WIDTH) * (angle / 360);

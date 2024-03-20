@@ -4,24 +4,20 @@
 using namespace vex;
 
 brain Brain;
-
 inertial BrainInertial = inertial();
 
 motor leftMotorA = motor(PORT4, 2.5, true);
 motor leftMotorB = motor(PORT2, 2.5, true);
-
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 
 motor rightMotorA = motor(PORT10, 2.5, false);
 motor rightMotorB = motor(PORT11, 2.5, false);
-
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
 
 motor basketRollerMotorA = motor(PORT8, false);
 motor basketRollerMotorB = motor(PORT12, true);
-
 motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
 
 touchled touchLed = touchled(PORT6);

@@ -16,7 +16,7 @@ void part2();
 void part3();
 
 void part1() {
-    printf("driving\n");
+    printf("Part 1\n");
     basketRoller.spin(forward);
 
     drive(16.5);
@@ -40,6 +40,7 @@ void part1() {
 }
 
 void part2() {
+    printf("Part 2\n");
     drive(29);
     turndeg(75, 70, 200, 1, false);
     drive(23);
@@ -53,6 +54,7 @@ void part2() {
 }
 
 void part3() {
+    printf("Part 3\n");
     basketRoller.spin(forward);
 
     Drivetrain.setDriveVelocity(80, percent);
@@ -84,10 +86,10 @@ int main() {
     setup();
     wait(1, seconds);
     // touch();
-    // part1();
-    part2();
+    part1();
+    // part2();
     // touch();
     // part3();
-    
+
     return 0;
 }
