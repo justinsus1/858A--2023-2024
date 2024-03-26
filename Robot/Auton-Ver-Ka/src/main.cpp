@@ -25,35 +25,45 @@ void part1() {
 
     drive(30);
     
-    turndeg(25, 70, 150, 1, false);
+    turndeg(15, 70, 150, 1, false);
     wait(500, msec);
-    drive(12);
+    drive(15);
     wait(500, msec);
 
-    turndeg(70, 80, 100);
-    drive(5);
+    turndeg(80, 80, 100);
+    // drive(5);
     wait(100, msec);
-    drive(-2);
 
     wait(500, msec);
-    turndeg(120, 60, 70, -1);
+    turndeg(125, 60, 70, -1);
 
     drive(5);
+    drive(-20);
 
     turndeg(110, 100, 150, 1, false);
 
-    // drive(30);
+    drive(15);
 
-    // turndeg(20, 100, -114, 1, false);
+    turndeg(20, 100, -114, 1, false);
 
-    // Drivetrain.setTimeout(1, seconds);
-    // Drivetrain.driveFor(reverse, 10, inches);
+    turndeg(50, 100, 150, 1, false);
+
+    Drivetrain.drive(forward);
+    wait(2, seconds);
+
+    Drivetrain.setTimeout(1, seconds);
+    Drivetrain.driveFor(reverse, 13, inches);
 
     LeftDriveSmart.stop();
     RightDriveSmart.stop();
     basketRoller.stop();
     pneumatics.retract(cylinder2);
     wait(2, seconds);
+    basketRoller.spin(reverse);
+    wait(1, seconds);
+    basketRoller.stop();
+    drive(1);
+    drive(-1);
 }
 
 void part2() {
@@ -82,7 +92,18 @@ void part2() {
 }
 
 void part3() {
+    basketRoller.spin(forward);
+    drive(37.5);
 
+    turndeg(90, 100, 100, 1, false)
+    
+
+    // oops this is non supply zone
+    // drive(5);
+    // turndeg(67.5, 90, 25, 1, false);
+
+    // drive(50);
+    // turndeg(90);
 }
 
 int main() {
@@ -91,12 +112,12 @@ int main() {
     setup();
 
     wait(1, seconds);
-    touch();
+    // touch();
     pneumatics.pumpOff();
 
-    part1();
+    // part1();
     // part2();
-    // part3();
+    part3();
 
     return 0;
 }
