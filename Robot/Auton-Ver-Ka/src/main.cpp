@@ -19,26 +19,25 @@ void part1() {
     printf("Part 1\n");
     basketRoller.spin(forward);
 
-    drive(16.5);
+    drive(17, 90);
 
     turndeg(60, 70, 100);
 
-    drive(30);
+    drive(30, 90);
     
-    turndeg(15, 70, 150, 1, false);
+    turndeg(13, 70, 150, 1, false);
     wait(500, msec);
     drive(15);
     wait(500, msec);
 
-    turndeg(80, 80, 100);
-    // drive(5);
+    turndeg(82, 80, 100);
     wait(100, msec);
 
     wait(500, msec);
     turndeg(125, 60, 70, -1);
 
-    drive(5);
-    drive(-20);
+    drive(5, 90);
+    drive(-17);
 
     turndeg(110, 100, 150, 1, false);
 
@@ -50,28 +49,38 @@ void part1() {
 
     Drivetrain.drive(forward);
     wait(2, seconds);
+    Drivetrain.stop();
+    
+    turndeg(-20);
 
-    Drivetrain.setTimeout(1, seconds);
-    Drivetrain.driveFor(reverse, 13, inches);
+    Drivetrain.drive(reverse);
+    wait(2, seconds);
+    Drivetrain.stop();
 
     LeftDriveSmart.stop();
     RightDriveSmart.stop();
+
     basketRoller.stop();
-    pneumatics.retract(cylinder2);
+    pneumatics.extend(cylinder2);
+
     wait(2, seconds);
     basketRoller.spin(reverse);
+    
+    RightDriveSmart.spinFor(-600, degrees);
     wait(1, seconds);
+
+    RightDriveSmart.stop();
     basketRoller.stop();
     drive(1);
     drive(-1);
 }
 
 void part2() {
-    pneumatics.extend(cylinder2);
+    pneumatics.retract(cylinder2);
     basketRoller.spin(forward);
 
-    drive(30);
-    turndeg(60, 70, 200, 1, false);
+    drive(26);
+    turndeg(70, 80, 200, 1, false);
     drive(27);
 
     LeftDriveSmart.setStopping(hold);
@@ -93,11 +102,12 @@ void part2() {
 
 void part3() {
     basketRoller.spin(forward);
-    drive(37.5);
-
-    turndeg(90, 100, 100, 1, false)
+    // drive(5);
+    // turndeg(40, 100, 100, 1, false);
+    // drive(5);
+    // turndeg(10, 100, 100, 1, false);
+    // drive(5);
     
-
     // oops this is non supply zone
     // drive(5);
     // turndeg(67.5, 90, 25, 1, false);

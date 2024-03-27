@@ -43,6 +43,8 @@ double rightVel = 0;
 double Target = 0;
 const double kP = 0.13;
 
+double maxVel = 90;
+
 double calculate(double target, double start) {
     double result = target - start;
     return result * kP;
@@ -55,7 +57,7 @@ int control() {
             Brain.Screen.setCursor(1, 1);
             // Brain.Screen.print("in task");
 
-            leftVel = calculate(Target, LeftDriveSmart.position(degrees) / 360 * 2 * 200);
+            leftVel = calculate(Target, LeftDriveSmart.position(degrees) / 360 * 2 * 200) * maxVel / 100;
             rightVel = calculate(Target, RightDriveSmart.position(degrees) / 360 * 2 * 200);
             LeftDriveSmart.setVelocity(leftVel, percent);
             RightDriveSmart.setVelocity(rightVel, percent);
@@ -85,7 +87,7 @@ task controlLoop(control);
  * 
  * @param driveTarget distance in inches
  */
-void drive(double driveTarget) {
+void drive(double driveTarget, double maxVelocity) {
     LeftDriveSmart.setPosition(0, degrees);
     RightDriveSmart.setPosition(0, degrees);
 
@@ -94,6 +96,8 @@ void drive(double driveTarget) {
     Target = driveTarget * 2;
 
     printf("Driving for: %lf inches.\n", driveTarget);
+
+    maxVel = maxVelocity;
 
     controlLoop.resume();
     wait(100, msec);
