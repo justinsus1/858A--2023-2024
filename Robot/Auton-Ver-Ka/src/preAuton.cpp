@@ -92,10 +92,11 @@ void checkDevice() {
 }
 
 void setup() {
-    printf("\n\nAuton:\n");
     checkDevice();
 
-    printf("%d\n", Brain.Battery.capacity(percent));
+    printf("Battery level: %d%%\n", Brain.Battery.capacity(percent));
+    printf("Battery voltage: %.2lfV\n", Brain.Battery.voltage(volt));
+    printf("Battery level before rounding: %.2lf%%\n", Brain.Battery.voltage(volt) / 0.084);
 
     controlLoop.suspend();
     pneumatics.pumpOff();
@@ -131,4 +132,7 @@ void setup() {
     basketRoller.stop();
     Drivetrain.stop();
     Drivetrain.setDriveVelocity(90, percent);
+
+    wait(5, seconds);
+    pneumatics.pumpOff();
 }

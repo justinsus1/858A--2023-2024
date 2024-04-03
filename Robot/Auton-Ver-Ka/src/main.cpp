@@ -100,34 +100,65 @@ void part2() {
     wait(2, seconds);
 }
 
-void part3() {
+void part3Supply() {
     basketRoller.spin(forward);
-    // drive(5);
-    // turndeg(40, 100, 100, 1, false);
-    // drive(5);
-    // turndeg(10, 100, 100, 1, false);
-    // drive(5);
-    
-    // oops this is non supply zone
-    // drive(5);
-    // turndeg(67.5, 90, 25, 1, false);
+    drive(8);
+    turndeg(40, 100, 80, 1, false);
+    drive(36, 300);
 
-    // drive(50);
-    // turndeg(90);
+    turndeg(60, 80, 150, 1, false);
+
+    drive(48, 300);
+
+    turndeg(75);
+
+    // next to the supply zone
+    Drivetrain.setDriveVelocity(60, percent);
+    Drivetrain.drive(forward);
+    wait(3, seconds);
+    Drivetrain.stop();
+
+    Drivetrain.driveFor(reverse, 4, inches);
+    wait(200, msec);
+    turndeg(30, 100, -80, 1, false);
+    Drivetrain.driveFor(forward, 4, inches);
+    wait(500, msec);
+    turndeg(30, 100, -80, 1, true);
+
+    // basketRoller.spin(reverse);
+    basketRoller.setStopping(coast);
+    
+    Drivetrain.drive(reverse);
+    wait(1300, msec);
+    Drivetrain.stop();
+    
+    turndeg(70, 90, -114, 1, true);
+    drive(32);
+    drive(-3);
+    turndeg(190);
+    Drivetrain.drive(reverse);
+    wait(1, seconds);
+    basketRoller.spinFor(-640, degrees);
+}
+
+void part3NoSupply() {
+    drive(5);
+    turndeg(67.5, 90, 25, 1, false);
+
+    drive(50);
+    turndeg(90);
 }
 
 int main() {
     printf("\n\nAuton:\n");
+    printf("Compilation date: %s %s\n", __TIME__, __DATE__);
 
     setup();
-
-    wait(1, seconds);
     // touch();
-    pneumatics.pumpOff();
 
     // part1();
     // part2();
-    part3();
+    part3Supply();
 
     return 0;
 }
