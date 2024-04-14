@@ -4,16 +4,16 @@
 		"json": 2
 	},
 	"project": {
-		"name": "Auton",
+		"name": "Autonz",
 		"description": "",
-		"creationDate": "2/19/2024, 4:42:17 PM",
+		"creationDate": "2/28/2024, 7:38:43 PM",
 		"platform": "IQ2",
 		"language": "cpp",
-		"slot": 1,
+		"slot": 2,
 		"sdkVersion": "IQ2_20230627_09_00_00",
 		"cpp": {
 			"includePath": [],
-			"printf_float": false
+			"printf_float": true
 		}
 	}
 }

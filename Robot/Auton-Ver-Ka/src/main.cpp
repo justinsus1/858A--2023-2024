@@ -13,7 +13,7 @@ using namespace vex;
 
 void part1();
 void part2();
-void part3();
+void part3Supply();
 
 void part1() {
     printf("Part 1\n");
@@ -54,7 +54,6 @@ void part1() {
     turndeg(-20);
 
     Drivetrain.drive(reverse);
-    wait(2, seconds);
     Drivetrain.stop();
 
     LeftDriveSmart.stop();
@@ -63,24 +62,22 @@ void part1() {
     basketRoller.stop();
     pneumatics.extend(cylinder2);
 
-    wait(2, seconds);
-    basketRoller.spin(reverse);
+    wait(500, msec);
+    basketRoller.spinFor(reverse, 200, degrees);
     
-    RightDriveSmart.spinFor(-600, degrees);
-    wait(1, seconds);
+    Drivetrain.driveFor(1.1, inches);
+    Drivetrain.driveFor(-1, inches);
 
     RightDriveSmart.stop();
     basketRoller.stop();
-    drive(1);
-    drive(-1);
 }
 
 void part2() {
     pneumatics.retract(cylinder2);
     basketRoller.spin(forward);
 
-    drive(26);
-    turndeg(70, 80, 200, 1, false);
+    drive(25);
+    turndeg(80, 80, 200, 1, false);
     drive(27);
 
     LeftDriveSmart.setStopping(hold);
@@ -96,17 +93,19 @@ void part2() {
     RightDriveSmart.setTimeout(100, seconds);
 
     basketRoller.stop();
-    basketRoller.spinFor(-640, degrees);
-    wait(2, seconds);
+    basketRoller.spinFor(-650, degrees);
+    wait(500, msec);
+    drive(1, 300);
+    drive(-1, 300);
 }
 
 void part3Supply() {
     basketRoller.spin(forward);
     drive(8);
-    turndeg(40, 100, 80, 1, false);
+    turndeg(42, 100, 80, 1, false);
     drive(36, 300);
 
-    turndeg(60, 80, 150, 1, false);
+    turndeg(58, 80, 150, 1, false);
 
     drive(48, 300);
 
@@ -118,8 +117,9 @@ void part3Supply() {
     wait(3, seconds);
     Drivetrain.stop();
 
-    Drivetrain.driveFor(reverse, 4, inches);
-    wait(200, msec);
+    Drivetrain.driveFor(reverse, 8, inches);
+    // wait(200, msec);
+
     turndeg(30, 100, -80, 1, false);
     Drivetrain.driveFor(forward, 4, inches);
     wait(500, msec);
@@ -134,19 +134,24 @@ void part3Supply() {
     
     turndeg(70, 90, -114, 1, true);
     drive(32);
-    drive(-3);
-    turndeg(190);
+
+    turndeg(210);
+    Drivetrain.setDriveVelocity(80, percent);
     Drivetrain.drive(reverse);
     wait(1, seconds);
-    basketRoller.spinFor(-640, degrees);
-}
+    Drivetrain.stop();
 
-void part3NoSupply() {
-    drive(5);
-    turndeg(67.5, 90, 25, 1, false);
+    RightDriveSmart.spin(reverse);
+    wait(200, msec);
+    RightDriveSmart.stop();
 
-    drive(50);
-    turndeg(90);
+    basketRoller.spinFor(-660, degrees);
+    drive(1, 300);
+    drive(-1, 300);
+
+    Drivetrain.drive(forward);
+    wait(3, seconds);
+    Drivetrain.stop();
 }
 
 int main() {
@@ -154,10 +159,10 @@ int main() {
     printf("Compilation date: %s %s\n", __TIME__, __DATE__);
 
     setup();
-    // touch();
+    touch();
 
-    // part1();
-    // part2();
+    part1();
+    part2();
     part3Supply();
 
     return 0;

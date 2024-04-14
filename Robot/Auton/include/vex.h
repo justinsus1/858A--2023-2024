@@ -6,11 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
 #include "iq2_cpp.h"
 
-
-
 #endif
-
-

@@ -125,7 +125,7 @@ void drive(double driveTarget, double maxVelocity) {
  * @param driveDirection 1 for forward or -1 for reverse
  * @param turnDirection true for right and false for left
  */
-void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnDirection, bool waiting, int time) {
+void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnDirection) {
     double outerWheelDistance, innerWheelDistance;
     double outerMotorAngle, innerMotorAngle;
     double leftAngle, rightAngle;
@@ -162,9 +162,7 @@ void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnD
     printf("rightAngle: %lf\n", rightAngle);
 
     LeftDriveSmart.spinFor(driveDirection == 1 ? forward : reverse, leftAngle, degrees, false);
-    RightDriveSmart.spinFor(driveDirection == 1 ? forward : reverse, rightAngle, degrees, waiting);
-
-    wait(time, msec);
+    RightDriveSmart.spinFor(driveDirection == 1 ? forward : reverse, rightAngle, degrees);
 
     LeftDriveSmart.setVelocity(70, percent);
     RightDriveSmart.setVelocity(70, percent);
