@@ -1,5 +1,9 @@
 #include "vex.h";
 
+#define WIDTH 228
+#define GEAR_RATIO 2
+#define WHEEL_SIZE 200
+
 extern vex::task controlLoop;
 
 int control(void);

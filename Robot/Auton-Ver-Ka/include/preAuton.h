@@ -15,13 +15,13 @@ extern motor_group RightDriveSmart;
 
 extern smartdrive Drivetrain;
 
-extern motor basketRollerMotorA;
-extern motor basketRollerMotorB;
-extern motor_group basketRoller;
+extern motor Ratchet_GearA;
+extern motor Ratchet_GearB;
+extern motor_group Ratchet_Gear;
 
-extern touchled touchLed;
+extern touchled touch_led;
 
-extern pneumatic pneumatics;
+extern pneumatic pneumatic_system;
 
 void touch();
 void checkDevice();

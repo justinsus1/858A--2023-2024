@@ -16,16 +16,16 @@ motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, BrainInertial, 200);
 
-motor basketRollerMotorA = motor(PORT8, false);
-motor basketRollerMotorB = motor(PORT12, true);
-motor_group basketRoller = motor_group(basketRollerMotorA, basketRollerMotorB);
+motor Ratchet_GearA = motor(PORT8, false);
+motor Ratchet_GearB = motor(PORT12, true);
+motor_group Ratchet_Gear = motor_group(Ratchet_GearA, Ratchet_GearB);
 
-touchled touchLed = touchled(PORT6);
+touchled touch_led = touchled(PORT6);
 
-pneumatic pneumatics = pneumatic(PORT5);
+pneumatic pneumatic_system = pneumatic(PORT5);
 
 void touch() {
-    while (!touchLed.pressing()) {
+    while (!touch_led.pressing()) {
         wait(10, msec);
     }
 }
@@ -59,28 +59,28 @@ void checkDevice() {
         wait(30, seconds);
     }
     
-    if (!basketRollerMotorA.installed()) {
+    if (!Ratchet_GearA.installed()) {
         Brain.Screen.print("BRM in PORT8 unplugged");
         printf("BRM in PORT8 unplugged\n");
         Brain.playSound(alarm);
         wait(30, seconds);
     }
     
-    if (!basketRollerMotorB.installed()) {
+    if (!Ratchet_GearB.installed()) {
         Brain.Screen.print("BRM in PORT12 unplugged");
         printf("BRM in PORT12 unplugged\n");
         Brain.playSound(alarm);
         wait(30, seconds);
     }
     
-    if (!touchLed.installed()) {
+    if (!touch_led.installed()) {
         Brain.Screen.print("TL in PORT6 unplugged");
         printf("TL in PORT6 unplugged\n");
         Brain.playSound(alarm);
         wait(30, seconds);
     }
     
-    if (!pneumatics.installed()) {
+    if (!pneumatic_system.installed()) {
         Brain.Screen.print("Pneumatics in PORT5 unplugged");
         printf("Pneumatics in PORT5 unplugged\n");
         Brain.playSound(alarm);
@@ -99,15 +99,15 @@ void setup() {
     printf("Battery level before rounding: %.2lf%%\n", Brain.Battery.voltage(volt) / 0.084);
 
     controlLoop.suspend();
-    pneumatics.pumpOff();
+    pneumatic_system.pumpOff();
     calibrateDrivetrain();
 
-    pneumatics.pumpOn();
-    pneumatics.retract(cylinder2);
+    pneumatic_system.pumpOn();
+    pneumatic_system.retract(cylinder2);
 
-    basketRoller.setVelocity(300, percent);
-    basketRoller.setMaxTorque(300, percent);
-    basketRoller.setStopping(hold);
+    Ratchet_Gear.setVelocity(300, percent);
+    Ratchet_Gear.setMaxTorque(300, percent);
+    Ratchet_Gear.setStopping(hold);
 
     LeftDriveSmart.setVelocity(300, percent);
     RightDriveSmart.setVelocity(300, percent);
@@ -122,17 +122,17 @@ void setup() {
     Drivetrain.setStopping(hold);
     // Drivetrain.drive(reverse);
 
-    touchLed.setColor(red);
+    touch_led.setColor(red);
 
-    basketRoller.spin(forward);
+    Ratchet_Gear.spin(forward);
 
     // touch();
-    touchLed.setColor(green);
+    touch_led.setColor(green);
 
-    basketRoller.stop();
+    Ratchet_Gear.stop();
     Drivetrain.stop();
     Drivetrain.setDriveVelocity(90, percent);
 
     wait(5, seconds);
-    pneumatics.pumpOff();
+    pneumatic_system.pumpOff();
 }

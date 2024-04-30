@@ -17,7 +17,7 @@ void part3Supply();
 
 void part1() {
     printf("Part 1\n");
-    basketRoller.spin(forward);
+    Ratchet_Gear.spin(forward);
 
     drive(17, 90);
 
@@ -59,22 +59,22 @@ void part1() {
     LeftDriveSmart.stop();
     RightDriveSmart.stop();
 
-    basketRoller.stop();
-    pneumatics.extend(cylinder2);
+    Ratchet_Gear.stop();
+    pneumatic_system.extend(cylinder2);
 
     wait(500, msec);
-    basketRoller.spinFor(reverse, 200, degrees);
+    Ratchet_Gear.spinFor(reverse, 200, degrees);
     
     Drivetrain.driveFor(1.1, inches);
     Drivetrain.driveFor(-1, inches);
 
     RightDriveSmart.stop();
-    basketRoller.stop();
+    Ratchet_Gear.stop();
 }
 
 void part2() {
-    pneumatics.retract(cylinder2);
-    basketRoller.spin(forward);
+    pneumatic_system.retract(cylinder2);
+    Ratchet_Gear.spin(forward);
 
     drive(25);
     turndeg(80, 80, 200, 1, false);
@@ -92,15 +92,15 @@ void part2() {
     LeftDriveSmart.setTimeout(100, seconds);
     RightDriveSmart.setTimeout(100, seconds);
 
-    basketRoller.stop();
-    basketRoller.spinFor(-650, degrees);
+    Ratchet_Gear.stop();
+    Ratchet_Gear.spinFor(-650, degrees);
     wait(500, msec);
     drive(1, 300);
     drive(-1, 300);
 }
 
 void part3Supply() {
-    basketRoller.spin(forward);
+    Ratchet_Gear.spin(forward);
     drive(8);
     turndeg(42, 100, 80, 1, false);
     drive(36, 300);
@@ -126,7 +126,7 @@ void part3Supply() {
     turndeg(30, 100, -80, 1, true);
 
     // basketRoller.spin(reverse);
-    basketRoller.setStopping(coast);
+    Ratchet_Gear.setStopping(coast);
     
     Drivetrain.drive(reverse);
     wait(1300, msec);
@@ -145,7 +145,7 @@ void part3Supply() {
     wait(200, msec);
     RightDriveSmart.stop();
 
-    basketRoller.spinFor(-660, degrees);
+    Ratchet_Gear.spinFor(-660, degrees);
     drive(1, 300);
     drive(-1, 300);
 
@@ -154,7 +154,7 @@ void part3Supply() {
     Drivetrain.stop();
 }
 
-int main() {
+int justin_main() {
     printf("\n\nAuton:\n");
     printf("Compilation date: %s %s\n", __TIME__, __DATE__);
 
@@ -165,5 +165,12 @@ int main() {
     part2();
     part3Supply();
 
+    return 0;
+}
+
+int main() {
+    // justin_main();
+    // sam_main();
+    
     return 0;
 }
