@@ -157,6 +157,11 @@ void part3Supply() {
     Drivetrain.drive(forward);
     wait(3, seconds);
     Drivetrain.stop();
+
+    Brain.Screen.print("fuck you sam, little kid ima eat you fucking european boy");
+    wait(5, seconds);
+    Brain.Screen.clearScreen();
+    Brain.Screen.print("fucking dumbass wish you a painful death");
 }
 
 int main() {
