@@ -169,3 +169,20 @@ void turndeg(double angle, int Ts, double radius, int driveDirection, bool turnD
     LeftDriveSmart.setVelocity(70, percent);
     RightDriveSmart.setVelocity(70, percent);
 }
+
+int jam() {
+    double prev_pos = 0;
+    double pos;
+
+    while (true) {
+        pos = basketRoller.position(degrees);
+        if (pos - prev_pos < 5) {
+
+            basketRoller.spin(reverse);
+
+            wait(500, msec);
+            basketRoller.spin(forward);
+        }
+        wait(300, msec);
+    }
+}

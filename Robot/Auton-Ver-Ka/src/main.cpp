@@ -112,10 +112,15 @@ void part3Supply() {
     turndeg(75);
 
     // next to the supply zone
+    task unjam(jam);
+    unjam.resume();
+
     Drivetrain.setDriveVelocity(60, percent);
     Drivetrain.drive(forward);
     wait(3, seconds);
     Drivetrain.stop();
+
+    unjam.stop();
 
     Drivetrain.driveFor(reverse, 8, inches);
     // wait(200, msec);
